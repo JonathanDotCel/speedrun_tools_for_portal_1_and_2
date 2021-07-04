@@ -1,12 +1,12 @@
 ![](socialcard.png)
 
 
-# Speedrun Tools for Portal 1 and Portal 2
+# Speedrun Tools for Portal 1 and Portal 2 (And now Half Life 2!)
 
 BunnyMod + UGC spam fix for Portal 2.
 Accurate `cl_showpos 1` velo for Portal 1 and Portal 2 (excludes vertical axis).
 
-### cl_showpos 1 velo (For Portal 1 and Portal 2)
+### cl_showpos 1 velo (For Portal 1, Portal 2 & Half Life 2)
 
 ![](velo.png)
 
