@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="24">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"exclude vertical from speed calcs"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{
+
+ github.com/JonathanDotCel
+ Use at your own risk.
+
+}
+
+define(address,"client.dll"+1C7279)
+define(bytes,F3 0F 10 45 D0)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //movss xmm0,[ebp-30]
+  xorps xmm0,xmm0
+  jmp return
+
+address:
+  jmp newmem
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // movss xmm0,[ebp-30]
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "client.dll"+1C7279
+
+"client.dll"+1C7251: A1 9C 5B EF 25           -  mov eax,[client.dll+E55B9C]
+"client.dll"+1C7256: FF 45 F8                 -  inc [ebp-08]
+"client.dll"+1C7259: 03 7D E4                 -  add edi,[ebp-1C]
+"client.dll"+1C725C: 8B 08                    -  mov ecx,[eax]
+"client.dll"+1C725E: F3 0F 59 C0              -  mulss xmm0,xmm0
+"client.dll"+1C7262: F3 0F 11 45 DC           -  movss [ebp-24],xmm0
+"client.dll"+1C7267: F3 0F 10 45 CC           -  movss xmm0,[ebp-34]
+"client.dll"+1C726C: F3 0F 10 4D DC           -  movss xmm1,[ebp-24]
+"client.dll"+1C7271: F3 0F 59 C0              -  mulss xmm0,xmm0
+"client.dll"+1C7275: F3 0F 58 C8              -  addss xmm1,xmm0
+// ---------- INJECTING HERE ----------
+"client.dll"+1C7279: F3 0F 10 45 D0           -  movss xmm0,[ebp-30]
+// ---------- DONE INJECTING  ----------
+"client.dll"+1C727E: F3 0F 59 C0              -  mulss xmm0,xmm0
+"client.dll"+1C7282: F3 0F 58 C8              -  addss xmm1,xmm0
+"client.dll"+1C7286: 0F 57 C0                 -  xorps xmm0,xmm0
+"client.dll"+1C7289: F3 0F 10 C1              -  movss xmm0,xmm1
+"client.dll"+1C728D: F3 0F 51 C0              -  sqrtss xmm0,xmm0
+"client.dll"+1C7291: 0F 29 45 90              -  movaps [ebp-70],xmm0
+"client.dll"+1C7295: F3 0F 10 45 90           -  movss xmm0,[ebp-70]
+"client.dll"+1C729A: 8B 96 5C 01 00 00        -  mov edx,[esi+0000015C]
+"client.dll"+1C72A0: 83 C4 34                 -  add esp,34
+"client.dll"+1C72A3: 0F 5A C0                 -  cvtps2pd xmm0,xmm0
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"disable UGC spam (framerate hiccups)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{
+
+ github.com/JonathanDotCel
+ Use at your own risk.
+
+}
+
+define(address,"client.dll"+41145A)
+define(bytes,75 0B 8D 8E 10 01 00 00)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //jne client.dll+411467
+  jmp client.dll+411467
+  lea ecx,[esi+00000110]
+  jmp return
+
+address:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // jne client.dll+411467
+  // lea ecx,[esi+00000110]
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "client.dll"+41145A
+
+"client.dll"+411449: CC                    -  int 3 
+"client.dll"+41144A: CC                    -  int 3 
+"client.dll"+41144B: CC                    -  int 3 
+"client.dll"+41144C: CC                    -  int 3 
+"client.dll"+41144D: CC                    -  int 3 
+"client.dll"+41144E: CC                    -  int 3 
+"client.dll"+41144F: CC                    -  int 3 
+"client.dll"+411450: 56                    -  push esi
+"client.dll"+411451: 8B F1                 -  mov esi,ecx
+"client.dll"+411453: 80 BE 44 01 00 00 00  -  cmp byte ptr [esi+00000144],00
+// ---------- INJECTING HERE ----------
+"client.dll"+41145A: 75 0B                 -  jne client.dll+411467
+"client.dll"+41145C: 8D 8E 10 01 00 00     -  lea ecx,[esi+00000110]
+// ---------- DONE INJECTING  ----------
+"client.dll"+411462: E8 99 EA FF FF        -  call client.dll+40FF00
+"client.dll"+411467: 8D 4E 70              -  lea ecx,[esi+70]
+"client.dll"+41146A: 5E                    -  pop esi
+"client.dll"+41146B: E9 10 C7 FF FF        -  jmp client.dll+40DB80
+"client.dll"+411470: 55                    -  push ebp
+"client.dll"+411471: 8B EC                 -  mov ebp,esp
+"client.dll"+411473: A1 80 50 9C 25        -  mov eax,[client.dll+925080]
+"client.dll"+411478: 53                    -  push ebx
+"client.dll"+411479: 8B D9                 -  mov ebx,ecx
+"client.dll"+41147B: 85 C0                 -  test eax,eax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"bunnymod 5"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{
+
+ github.com/JonathanDotCel
+ Use at your own risk.
+
+}
+
+define(address,"server.dll"+33DDE5)
+define(bytes,76 58 F3 0F 10 50 40)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //jna server.dll+33DE3F
+  jmp server.dll+33DE3F
+  movss xmm2,[eax+40]
+  jmp return
+
+address:
+  jmp newmem
+  nop
+  nop
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // jna server.dll+33DE3F
+  // movss xmm2,[eax+40]
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "server.dll"+33DDE5
+
+"server.dll"+33DDBA: F3 0F 10 50 44           -  movss xmm2,[eax+44]
+"server.dll"+33DDBF: F3 0F 10 60 40           -  movss xmm4,[eax+40]
+"server.dll"+33DDC4: F3 0F 59 E4              -  mulss xmm4,xmm4
+"server.dll"+33DDC8: F3 0F 59 D2              -  mulss xmm2,xmm2
+"server.dll"+33DDCC: 83 C4 04                 -  add esp,04
+"server.dll"+33DDCF: F3 0F 58 E2              -  addss xmm4,xmm2
+"server.dll"+33DDD3: 0F 2F 25 C8 98 5C 25     -  comiss xmm4,[server.dll+5998C8]
+"server.dll"+33DDDA: 0F 28 F0                 -  movaps xmm6,xmm0
+"server.dll"+33DDDD: 0F 28 E8                 -  movaps xmm5,xmm0
+"server.dll"+33DDE0: F3 0F 11 45 C8           -  movss [ebp-38],xmm0
+// ---------- INJECTING HERE ----------
+"server.dll"+33DDE5: 76 58                    -  jna server.dll+33DE3F
+"server.dll"+33DDE7: F3 0F 10 50 40           -  movss xmm2,[eax+40]
+// ---------- DONE INJECTING  ----------
+"server.dll"+33DDEC: F3 0F 10 25 78 C6 5C 25  -  movss xmm4,[server.dll+59C678]
+"server.dll"+33DDF4: 0F 2F D4                 -  comiss xmm2,xmm4
+"server.dll"+33DDF7: F3 0F 10 3D 1C 40 69 25  -  movss xmm7,[server.dll+66401C]
+"server.dll"+33DDFF: 76 05                    -  jna server.dll+33DE06
+"server.dll"+33DE01: 0F 2F C3                 -  comiss xmm0,xmm3
+"server.dll"+33DE04: 77 0A                    -  ja server.dll+33DE10
+"server.dll"+33DE06: 0F 2F FA                 -  comiss xmm7,xmm2
+"server.dll"+33DE09: 76 0D                    -  jna server.dll+33DE18
+"server.dll"+33DE0B: 0F 2F D8                 -  comiss xmm3,xmm0
+"server.dll"+33DE0E: 76 08                    -  jna server.dll+33DE18
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
